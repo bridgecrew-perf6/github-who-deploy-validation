@@ -1,0 +1,26 @@
+{
+  "name": "github-who-deploy-validation",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "watch": "npm run storage-emulator && tsc -w",
+    "prestart": "npm run build",
+    "start": "concurrently \"npm run storage-emulator\" \"npm run start:local\" ",
+    "start:local": "func start",
+    "storage-emulator": "azurite --silent --location data --debug data/debug.log",
+    "test": "echo \"No tests yet...\"",
+    "func:ver": "func --version"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.17.1",
+    "azurite": "^3.15.0",
+    "concurrently": "^6.5.1",
+    "playwright": "^1.17.1",
+    "playwright-chromium": "^1.17.1"
+  },
+  "devDependencies": {
+    "@azure/functions": "^1.2.3",
+    "typescript": "^4.0.0"
+  }
+}
