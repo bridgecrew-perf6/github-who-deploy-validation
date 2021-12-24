@@ -1,18 +1,17 @@
 import { AzureFunction, Context } from "@azure/functions";
-const { chromium } = require("playwright-chromium");
+import { chromium } from "playwright-chromium";
 
-export const testBasic = async function (): Promise<any> {
-    var timeStamp = new Date().toISOString();
+export const testBasic = async function (uri: string): Promise<any> {
+    var timeStamp = Date.now();
 
-    const url = "https://thankful-glacier-0c994031e.azurestaticapps.net";
     const browser = await chromium.launch();
     const page = await browser.newPage();
-    await page.emulateMedia('screen');
-    await page.goto(url);
+    await page.emulateMedia({media:'screen'});
+    await page.goto(uri);
     const screenshotBuffer = await page.pdf({ format: 'Letter' })
     await browser.close();
     return {
         image: screenshotBuffer,
-        imageFileName: "thankful-glacier-0c994031e" + "_" + timeStamp + ".pdf"
+        imageFileName: 'result.pdf'
     };
 };
